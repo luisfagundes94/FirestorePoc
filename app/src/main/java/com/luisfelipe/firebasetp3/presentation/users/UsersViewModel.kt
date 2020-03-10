@@ -11,14 +11,19 @@ class UsersViewModel : ViewModel() {
     private val noUsersAvailableYet = MutableLiveData<Unit>()
     private val onFetchUsersFromDatabaseFailure = MutableLiveData<String>()
     private val onFetchUsersFromDatabaseSuccess = MutableLiveData<List<User>>()
+    private val isLoading = MutableLiveData<Unit>()
+    private val isNotLoading = MutableLiveData<Unit>()
 
     private val firestoreDatabase = FirebaseFirestore.getInstance()
 
+    fun isLoading() = isLoading
+    fun isNotLoading() = isNotLoading
     fun noUsersAvailableYet() = noUsersAvailableYet
     fun onFetchUsersFromDatabaseFailure() = onFetchUsersFromDatabaseFailure
     fun onFetchUsersFromDatabaseSuccess() = onFetchUsersFromDatabaseSuccess
 
     fun getAllUsersFromFirestoreDatabase() {
+        isLoading.postValue(Unit)
         val users = mutableListOf<User>()
 
         firestoreDatabase.firestoreSettings = createFirebaseDatabaseSettings()
@@ -29,7 +34,6 @@ class UsersViewModel : ViewModel() {
                     val user = document.toObject(User::class.java)
                     users.add(user)
                 }
-
                 onFetchUsersFromDatabaseSuccess.postValue(users)
             }
             .addOnFailureListener {
@@ -37,6 +41,7 @@ class UsersViewModel : ViewModel() {
             }
             .addOnCompleteListener {
                 if (users.isNullOrEmpty()) noUsersAvailableYet.postValue(Unit)
+                isNotLoading.postValue(Unit)
             }
     }
 

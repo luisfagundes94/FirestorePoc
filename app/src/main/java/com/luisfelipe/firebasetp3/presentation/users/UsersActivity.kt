@@ -41,6 +41,12 @@ class UsersActivity : AppCompatActivity(), OnItemClickListener {
             noUsersAvailableYet().observe(this@UsersActivity, Observer {
                 displayNoUsersAvailableMessage()
             })
+            isLoading().observe(this@UsersActivity, Observer {
+                displayProgressBar()
+            })
+            isNotLoading().observe(this@UsersActivity, Observer {
+                hideProgressBar()
+            })
             onFetchUsersFromDatabaseFailure().observe(this@UsersActivity, Observer { errorMsg ->
                 displayErrorMessage(message = errorMsg)
             })
@@ -75,5 +81,13 @@ class UsersActivity : AppCompatActivity(), OnItemClickListener {
 
     private fun navigateToUserDetailsActivity(user: User) {
         startActivity(UserDetailsActivity.getIntent(this, user))
+    }
+
+    private fun hideProgressBar() {
+        progressBar.visibility = View.GONE
+    }
+
+    private fun displayProgressBar() {
+        progressBar.visibility = View.VISIBLE
     }
 }
