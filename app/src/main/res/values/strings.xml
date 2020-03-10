@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">FirebaseTp3</string>
+    <string name="hint_name">Nome</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_phone">Telefone</string>
+    <string name="hint_mobile_phone">Celular</string>
+    <string name="hint_cpf">CPF</string>
+    <string name="hint_city">Cidade</string>
+    <string name="btn_clear_all_fields">Limpar campos</string>
+    <string name="btn_save_user">SALVAR</string>
+    <string name="btn_navigate_to_users_activity">Visualizar Usuários</string>
+    <string name="warning_no_users_available">Ainda não existe nenhum usuário cadastrado!</string>
+</resources>
